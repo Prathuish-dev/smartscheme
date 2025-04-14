@@ -1,0 +1,124 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e8f7fa; /* Light gradient-inspired background */
+    color: #2C3E50;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(to right, #2595bd, #3e659b);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
+}
+nav button {
+    background: #2596be; /* Primary blue */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+nav button:hover {
+    background: #3db17d; /* Switch to green on hover */
+}
+
+/* Profile Container */
+.profile-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2 {
+    margin-top: 0;
+    color: #2596be; /* Blue heading */
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+header nav a {
+    text-decoration: none; /* Removes underline */
+}
+/* Profile Sections */
+.profile-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h3 {
+    margin-top: 0;
+    color: #2596be; /* Blue section title */
+    font-size: 1.5em;
+    border-bottom: 2px solid #3db17d; /* Green underline */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+/* Detail Items */
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #2C3E50;
+}
+
+.detail-value {
+    color: #1F2A38;
+}
+
+/* Actions */
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.actions button {
+    background: #3db17d; /* Primary green */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.actions button:hover {
+    background: #2596be; /* Switch to blue on hover */
+}

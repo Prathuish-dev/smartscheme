@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/usr.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>
+        <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+    </h1>
+        <nav>
+            <a href="/profile">
+                <button>Back to Profile</button>
+            </a>
+            <a href="/logout">
+                <button>Sign Out</button>
+            </a>
+        </nav>
+    </header>
+    <main>
+        <form action="/submit-user-details" method="post">
+            <!-- Personal Details Section -->
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>First Name *</label>
+                        <input type="text" name="first_name" value="{{user.first_name}}" required>
+                    </div>
+                    <div class="column">
+                        <label>Last Name *</label>
+                        <input type="text" name="last_name" value="{{user.last_name}}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Gender *</label>
+                        <input type="text" name="gender" value="{{user.gender}}">
+                    </div>
+                    <div class="column">
+                        <label>Date of Birth *</label>
+                        <input type="date" name="date_of_birth" value="{{user.date_of_birth}}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Category *</label>
+                        <input type="text" name="category" value="{{user.category}}">
+                    </div>
+                    <div class="column">
+                        <label>Caste *</label>
+                        <input type="text" name="caste" value="{{user.caste}}">
+                    </div>
+                </div>
+                <div class="row">
+    <div class="column">
+        <label for="domicile_state">Domicile State *</label>
+        <select id="domicile_state" name="domicile_state" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+            <option value="Lakshadweep">Lakshadweep</option>
+            <option value="Delhi">Delhi</option>
+            <option value="Puducherry">Puducherry</option>
+            <option value="Ladakh">Ladakh</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+        </select>
+    </div>
+</div>
+
+                    <div class="column">
+                        <label>Religion *</label>
+                        <input type="text" name="religion" value="{{user.religion}}">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Contact Details Section -->
+            <fieldset>
+                <legend>Contact Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Address *</label>
+                        <textarea name="address" required>{{user.address}}</textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Email *</label>
+                        <input type="email" name="email" value="{{user.email}}">
+                    </div>
+                    <div class="column">
+                        <label>Phone Number *</label>
+                        <input type="text" name="phone_number" value="{{user.phone_number}}" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Education Status -->
+            <fieldset>
+    <legend>Education Status</legend>
+    <div class="row">
+        <div class="column">
+            <label for="is_student">Are you a student? *</label>
+            <select name="is_student" id="is_student" onchange="toggleStudentDetails()" required>
+                <option value="" disabled selected>Select Option</option>
+                <option value="Yes" {{#if user.isStudentYes}} selected {{/if}}>Yes</option>
+                <option value="No" {{#if user.isStudentNo}} selected {{/if}}>No</option>
+            </select>
+        </div>
+    </div>
+</fieldset>
+
+<!-- Education Details (Hidden initially) -->
+<fieldset id="student_details" style="display: none;">
+    <legend>Education Details</legend>
+    <div class="row">
+        <div class="column">
+            <label for="course_type">Course Type *</label>
+            <select name="course_type" id="course_type" required>
+                <option value="" disabled selected>Select Course Type</option>
+                {{#each courseTypes}}
+                    <option value="{{this}}" {{#if (lookup ../user.courseTypeFlags this)}} selected {{/if}}>{{this}}</option>
+                {{/each}}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="admission_type">Admission Type *</label>
+            <select name="admission_type" id="admission_type" required>
+                <option value="" disabled selected>Select Admission Type</option>
+                <option value="merit" {{#if user.isMerit}} selected {{/if}}>Merit</option>
+                <option value="reservation" {{#if user.isReservation}} selected {{/if}}>Reservation</option>
+                <option value="management" {{#if user.isManagement}} selected {{/if}}>Management</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="academic_year">Academic Year</label>
+            <input type="number" id="academic_year" name="academic_year" value="{{user.academic_year}}" min="1900" max="2099">
+        </div>
+        <div class="column">
+            <label for="percentage_or_marks">Percentage / Marks</label>
+            <input type="number" id="percentage_or_marks" name="percentage_or_marks" value="{{user.percentage_or_marks}}" step="0.01">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="attendance_percentage">Attendance Percentage</label>
+            <input type="number" id="attendance_percentage" name="attendance_percentage" value="{{user.attendance_percentage}}" step="0.01">
+        </div>
+        <div class="column">
+            <label for="qualification_exam_score">Qualification Exam Score</label>
+            <input type="number" id="qualification_exam_score" name="qualification_exam_score" value="{{user.qualification_exam_score}}" step="0.01">
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <label for="institute_type">Institute Type</label>
+            <select name="institute_type" id="institute_type">
+                <option value="" disabled selected>Select Institute Type</option>
+                <option value="gov" {{#if user.isGovInstitute}} selected {{/if}}>Government</option>
+                <option value="gov_aided" {{#if user.isGovAidedInstitute}} selected {{/if}}>Government Aided</option>
+                <option value="self_finance" {{#if user.isSelfFinanceInstitute}} selected {{/if}}>Self Finance</option>
+            </select>
+        </div>
+    </div>
+</fieldset>
+
+<script>
+    function toggleStudentDetails() {
+        const studentSelect = document.getElementById("is_student");
+        const studentDetails = document.getElementById("student_details");
+
+        if (studentSelect.value === "Yes") {
+            studentDetails.style.display = "block";
+        } else {
+            studentDetails.style.display = "none";
+        }
+    }
+
+    // Run on page load to ensure correct visibility based on the user's data
+    document.addEventListener("DOMContentLoaded", function () {
+        toggleStudentDetails();
+    });
+</script>
+
+
+            <!-- Family & Financial Details -->
+            <fieldset>
+                <legend>Family & Financial Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Annual Income *</label>
+                        <input type="number" name="annual_income" value="{{user.annual_income}}" step="10000" required>
+                    </div>
+                    <div class="column">
+                        <label>Previously Received Scholarship? *</label>
+                        <select name="previous_scholarship" required>
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="1" {{#if user.previousScholarshipYes}}selected{{/if}}>Yes</option>
+                            <option value="0" {{#if user.previousScholarshipNo}}selected{{/if}}>No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Family Details (If Female & Single Girl Child)</label>
+                        <select name="single_girl_child">
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="1" {{#if user.singleGirlChildYes}}selected{{/if}}>Yes</option>
+                            <option value="0" {{#if user.singleGirlChildNo}}selected{{/if}}>No</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="column">
+                    <button type="submit">Update Profile</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

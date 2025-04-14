@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Search</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background: #512da8;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        header a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: #512da8;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .filter-list li {
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-list label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .filter-list select,
+        .filter-list input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .filter-list select:focus,
+        .filter-list input:focus {
+            border-color: #512da8;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .reset-filters {
+            background: #512da8;
+        }
+
+        .reset-filters:hover {
+            background: #3c1d6b;
+        }
+
+        /* Content Styles */
+        .content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .search-box input:focus {
+            border-color: #512da8;
+            outline: none;
+        }
+
+        .results h2 {
+            margin-top: 0;
+            color: #512da8;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .results .count {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .scholarship-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .scholarship-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s;
+        }
+
+        .scholarship-item:hover {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scholarship-item strong {
+            color: #512da8;
+            font-size: 18px;
+        }
+
+        .scholarship-item .status {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .scholarship-item .status.open {
+            color: green;
+        }
+
+        .scholarship-item .status.closed {
+            color: red;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Smart Scheme</h1>
+        <a href="/">Go to Home Page</a>
+    </header>
+    
+    <main>
+        <div class="sidebar">
+            <h3>Filter By</h3>
+            <button class="reset-filters" onclick="resetFilters()">Reset Filters</button>
+            <form id="searchForm">
+                <ul class="filter-list">
+                    <li>Category
+                        <select id="category" name="category">
+                            <option value="">Any</option>
+                            <option value="General">General</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                            <option value="OBC">OBC</option>
+                            <option value="Minority">Minority</option>
+                        </select>
+                    </li>
+                    <li>Gender
+                        <select id="gender" name="gender">
+                            <option value="">Any</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </li>
+                    <li>Income (Max Limit)
+                        <input type="number" id="income_limit" name="income_limit" placeholder="Enter income">
+                    </li>
+                    <li>Domicile
+                        <select id="domicile" name="domicile">
+                            <option value="">Any</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="India">India</option>
+                        </select>
+                    </li>
+                    <li>Min Qualification Score
+                        <input type="number" id="qualification_exam_score" name="qualification_exam_score" placeholder="Enter % score">
+                    </li>
+                    <li>Course Type
+                        <select id="course_type" name="course_type">
+                            <option value="">Any</option>
+                            <option value="High School">High School</option>
+                            <option value="Higher Secondary">Higher Secondary</option>
+                            <option value="Graduation">Graduation</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Professional">Professional</option>
+                            <option value="UG">UG</option>
+                            <option value="PG">PG</option>
+                        </select>
+                    </li>
+                </ul>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        <div class="content">
+            <div class="results">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search scholarships by name...">
+                </div>
+                <h2>Matching Scholarships</h2>
+                <div class="count" id="scholarshipCount">Total Scholarships: <span id="countValue">0</span></div>
+                <ul class="scholarship-list" id="scholarshipList">
+                    <!-- Results will be displayed here -->
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Function to fetch and display all scholarships initially
+        async function fetchAllScholarships() {
+            const response = await fetch('/all-scholarships');
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
+        }
+
+        // Function to display scholarships
+        function displayScholarships(scholarships) {
+        const resultList = document.getElementById("scholarshipList");
+        const countValue = document.getElementById("countValue");
+        resultList.innerHTML = "";
+
+        if (scholarships.length > 0) {
+            scholarships.forEach(scholarship => {
+                const li = document.createElement("li");
+                li.className = "scholarship-item";
+                
+                // Make the entire box clickable
+                li.onclick = () => {
+                    window.location.href = `/scholarship/details/${scholarship.scholarshipID}`;
+                };
+
+                li.innerHTML = `
+                    <strong>${scholarship.name}</strong>
+                    <p><strong>Income Limit:</strong> ${scholarship.income_limit ? `₹${scholarship.income_limit}` : 'Not specified'}</p>
+                    <p><strong>Category:</strong> ${scholarship.category}</p>
+                    <p><strong>Course Type:</strong> ${scholarship.course_type}</p>
+                    <div class="status ${scholarship.status}">Status: ${scholarship.status}</div>
+                `;
+
+                // Add hover effect for better UX
+                li.style.cursor = "pointer";
+                li.style.transition = "0.3s";
+                li.onmouseover = () => li.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
+                li.onmouseout = () => li.style.boxShadow = "none";
+
+                resultList.appendChild(li);
+            });
+        } else {
+            resultList.innerHTML = "<p>No matching scholarships found.</p>";
+        }
+
+            // Update the scholarship count
+            countValue.textContent = scholarships.length;
+        }
+
+        // Function to handle form submission
+        document.getElementById("searchForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            let queryParams = new URLSearchParams();
+
+            // Append non-empty form values to query parameters
+            formData.forEach((value, key) => {
+                if (value.trim() !== "") {
+                    queryParams.append(key, value);
+                }
+            });
+
+            // Fetch scholarships from the backend
+            const response = await fetch(`/search-scholarships?${queryParams.toString()}`);
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
+        });
+
+        // Function to handle dynamic search
+        document.getElementById("searchInput").addEventListener("input", async function (event) {
+            const searchTerm = event.target.value.trim();
+
+            // Fetch scholarships from the backend
+            const response = await fetch(`/search-scholarships?search=${searchTerm}`);
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
+        });
+
+        // Function to reset filters and clear results
+        function resetFilters() {
+            document.getElementById("searchForm").reset();
+            fetchAllScholarships();
+        }
+
+        // Fetch all scholarships when the page loads
+        fetchAllScholarships();
+    </script>
+</body>
+</html>

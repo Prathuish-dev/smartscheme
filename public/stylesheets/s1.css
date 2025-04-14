@@ -1,0 +1,175 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to right, #e0f7f2, #f0faff); /* Light gradient inspired by the theme */
+    color: #333;
+}
+
+/* Logo Styling */
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
+}
+
+/* Header Adjustments */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background: #2596be; /* Primary blue */
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 0; /* Remove any default font size */
+    display: flex; /* Ensure proper alignment of the logo */
+    align-items: center;
+}
+header nav button {
+    background: #1c6f8d; /* Primary blue */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+header nav button:hover {
+    background: #3db17d; /* Switch to green on hover */
+}
+header nav a {
+    text-decoration: none; /* Removes underline */
+}
+/* Steps Section */
+.steps h2 {
+    font-size: 2.5em;
+    color: #3db17d; /* Primary blue */
+    text-align: center;
+    
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    max-width: 80%;
+    margin: 30px auto;
+}
+
+.step-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 300px;
+}
+/* Remove underline from links */
+.step-card-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Ensures the text color remains consistent */
+    display: block; /* Makes the entire card clickable */
+}
+
+.step-card-link:hover {
+    text-decoration: none; /* Prevents underline on hover */
+}
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.step-card img {
+    height: 60px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.step-card img:hover {
+    transform: scale(1.1);
+}
+
+.step-card h3 {
+    font-size: 1.3em;
+    color: #3db17d; /* Primary blue */
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.step-card p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* FAQ Section */
+.faq-section {
+    margin: 40px 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.faq-header h2 {
+    font-size: 2em;
+    color: #3db17d; /* Primary green */
+    font-weight: 700;
+}
+
+.faq-header p {
+    font-size: 1em;
+    color: #555;
+}
+
+.faq-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.faq-content ul li {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1em;
+    color: #444;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.faq-content ul li:hover {
+    background: linear-gradient(to right, #2596be, #3db17d); /* Gradient for hover effect */
+    color: #fff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin: 30px;
+    font-size: 0.85em;
+    color: #f1f1f1;
+    background: linear-gradient(to right, #2596be, #3db17d); /* Gradient for footer */
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}

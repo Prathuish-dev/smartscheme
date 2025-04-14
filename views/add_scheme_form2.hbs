@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Scholarship - Smart Scheme</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background-color: #512da8;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        header nav button {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        header nav button:hover {
+            background: #4527a0;
+        }
+
+        /* Form Styles */
+        main {
+            padding: 20px;
+        }
+
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        fieldset {
+            border: none;
+            padding: 0;
+        }
+
+        legend {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #512da8;
+            margin-bottom: 25px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        button[type="submit"] {
+            background: #512da8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background: #4527a0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>SMART</span> SCHEME</h1>
+        <nav>
+            <a href="/admin-panel">
+                <button>Back to Admin Panel</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <form id="add-scheme-form2" action="/add-scheme-form2" method="post">
+            <fieldset>
+                <legend>Add Scholarship (Step 2 of 2)</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Details *</label>
+                        <textarea name="details" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Benefits *</label>
+                        <textarea name="benefits" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Eligibility *</label>
+                        <textarea name="eligibility" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Application Process *</label>
+                        <textarea name="applicationProcess" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Documents Required *</label>
+                        <textarea name="documentsRequired" required></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <label>Type "CONFIRM" to add scholarship *</label>
+                        <input type="text" name="confirmation" required>
+                    </div>
+                </div>
+                <button type="submit">Add Scholarship</button>
+            </fieldset>
+        </form>
+    </main>
+</body>
+</html>

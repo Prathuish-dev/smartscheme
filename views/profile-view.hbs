@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/s5.css"> <!-- Separate CSS file -->
+</head>
+<body>
+    <header>
+        <h1>
+        <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+    </h1>
+        <nav>
+            <a href="/profile">
+                <button>Back to Dashboard</button>
+            </a>
+            <a href="/logout">
+                <button>Sign Out</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="profile-container">
+            <h2>Your Profile</h2>
+            <div class="profile-details">
+                <!-- Personal Details -->
+                <div class="profile-section">
+                    <h3>Personal Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value">{{user.first_name}} {{user.last_name}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Gender:</span>
+                        <span class="detail-value">{{user.gender}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date of Birth:</span>
+                        <span class="detail-value">{{user.date_of_birth}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Category:</span>
+                        <span class="detail-value">{{user.category}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Caste:</span>
+                        <span class="detail-value">{{user.caste}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Domicile State:</span>
+                        <span class="detail-value">{{user.domicile_state}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Religion:</span>
+                        <span class="detail-value">{{user.religion}}</span>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="profile-section">
+                    <h3>Contact Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Address:</span>
+                        <span class="detail-value">{{user.address}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value">{{user.email}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Phone Number:</span>
+                        <span class="detail-value">{{user.phone_number}}</span>
+                    </div>
+                </div>
+
+                <!-- Education Details -->
+                <div class="profile-section">
+                    <h3>Education Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Are you a student?</span>
+                        <span class="detail-value">{{user.is_student}}</span>
+                    </div>
+                    {{#if user.isStudentYes}}
+                        <div class="detail-item">
+                            <span class="detail-label">Course Type:</span>
+                            <span class="detail-value">{{user.course_type}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Admission Type:</span>
+                            <span class="detail-value">{{user.admission_type}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Academic Year:</span>
+                            <span class="detail-value">{{user.academic_year}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Percentage / Marks:</span>
+                            <span class="detail-value">{{user.percentage_or_marks}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Attendance Percentage:</span>
+                            <span class="detail-value">{{user.attendance_percentage}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Qualification Exam Score:</span>
+                            <span class="detail-value">{{user.qualification_exam_score}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Institute Type:</span>
+                            <span class="detail-value">{{user.institute_type}}</span>
+                        </div>
+                    {{/if}}
+                </div>
+
+                <!-- Family & Financial Details -->
+                <div class="profile-section">
+                    <h3>Family & Financial Details</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Annual Income:</span>
+                        <span class="detail-value">{{user.annual_income}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Previously Received Scholarship?</span>
+                        <span class="detail-value">{{#if user.previousScholarshipYes}}Yes{{else}}No{{/if}}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Single Girl Child:</span>
+                        <span class="detail-value">{{#if user.singleGirlChildYes}}Yes{{else}}No{{/if}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Button -->
+            <div class="actions">
+                <a href="/user-details">
+                    <button>Edit Profile</button>
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

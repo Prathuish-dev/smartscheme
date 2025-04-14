@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/s2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Notice Board Styling */
+        .notice-board {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .notice-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .notice-item:last-child {
+            border-bottom: none;
+        }
+        .notice-item.unread {
+            font-weight: bold;
+            color: #D32F2F;
+        }
+        .notice-item.read {
+            color: #757575;
+        }
+        .notice-item:hover {
+            background: #f5f5f5;
+        }
+        .notice-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        .notice-message {
+            flex: 1;
+        }
+        .notice-date {
+            font-size: 0.85em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+            <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+            Smart Scheme
+        </h1>
+        <nav>
+            <a href="/logout"><button>Sign Out</button></a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <img src="/images/user-placeholder.png" alt="User Profile">
+                <p>{{user.first_name}} {{user.last_name}} <br><span>{{user.email}}</span></p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul> 
+                    <div class="side1">
+                        <li><a href="/profile-view">Profile</a></li>
+                        <li><a href="#" onclick="showTab('my-scholarships')">My Scholarship</a></li>
+                        <li><a href="#" onclick="showTab('application-status')">Application Status</a></li>
+                        <li><a href="/approved-applications">Approved Applications</a></li>
+                        <li><a href="#" onclick="showTab('notice-board')">Notifications</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- Notice Board Section -->
+            <section id="notice-board" class="tab-content">
+                <h2>Notice Board</h2>
+                {{#if notifications.length}}
+                    <div class="notice-board">
+                        {{#each notifications}}
+                            <div class="notice-item {{#if this.read}}read{{else}}unread{{/if}}" onclick="markAsRead('{{this._id}}')">
+                                <i class="fas fa-bell notice-icon"></i>
+                                <div class="notice-message">
+                                    <p>{{this.message}}</p>
+                                    <small class="notice-date">{{formatDate this.createdAt}}</small>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <p>No new notifications.</p>
+                {{/if}}
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function markAsRead(notificationId) {
+            fetch(`/notifications/mark-read/${notificationId}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelector(`[onclick="markAsRead('${notificationId}')"]`).classList.remove('unread');
+                        document.querySelector(`[onclick="markAsRead('${notificationId}')"]`).classList.add('read');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Details - Smart Scheme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            color: #2C3E50;
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #2595bd;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 img.logo {
+            height: 90px;
+            width: auto;
+            margin-right: 5px;
+        }
+
+        header nav a {
+            text-decoration: none;
+        }
+
+        header nav button {
+            background: #1c6f8d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        header nav button:hover {
+            background: #3db17d;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 130px;
+            left: 0;
+            margin-top: 3px;
+            margin-left: 2px;
+            width: 250px;
+            height: 100%;
+            padding: 20px;
+            background: linear-gradient(to right, #599ecf, #2596be);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 5;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: #fff;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 4px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #3db17d;
+            color: #fff;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 300px;
+            margin-top: calc(80px + 60px);
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #3db17d;
+            padding-bottom: 10px;
+            color: #3db17d;
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .section p {
+            font-size: 1em;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .point-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .point-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .point-list li:before {
+            content: "•";
+            color: #3db17d;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+
+        .sub-point-list {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
+
+        .sub-point-list li:before {
+            content: "○";
+            color: #2596be;
+        }
+
+        .side1 {
+            background: linear-gradient(to right, #81c0dd, #5aa2d5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Apply Button */
+        .apply-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .apply-button:hover {
+            background: #45a049;
+        }
+
+        .apply-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 768px) {
+            .content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                margin-top: 0;
+                padding: 10px;
+            }
+
+            .section {
+                margin-bottom: 20px;
+            }
+        }
+
+    .application-message {
+        background-color: #FFF3E0;  
+        color: #E65100;          
+        padding: 12px 20px;
+        border-left: 4px solid #FF9800; 
+        border-radius: 4px;
+        margin: 20px 0;
+        font-weight: 500;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    </style>
+</head>
+<body>
+ 
+    <header>
+        <h1>
+            <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+            Smart Scheme
+        </h1>
+        <nav>
+            <a href="/profile">
+                <button>Back to profile</button>
+            </a>
+            <a href="/logout">
+                <button>Logout</button>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main content area -->
+    <main>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <div class="side1">
+                <a href="#details">Details</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#eligibility">Eligibility</a>
+                <a href="#application-process">Application Process</a>
+                <a href="#documents-required">Documents Required</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Scholarship Details -->
+            <div id="details" class="section">
+                <h2>Details</h2>
+                <p>{{scholarship.details}}</p>
+            </div>
+
+            <!-- Scholarship Benefits -->
+            <div id="benefits" class="section">
+                <h2>Benefits</h2>
+                <p>{{scholarship.benefits}}</p>
+            </div>
+
+            <!-- Scholarship Eligibility -->
+            <div id="eligibility" class="section">
+                <h2>Eligibility</h2>
+                <ul class="point-list">
+                    {{#each (splitPoints scholarship.eligibility)}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+
+            <!-- Application Process -->
+            <div id="application-process" class="section">
+    <h2>Application Process</h2>
+    <ul class="point-list">
+        {{#each (splitPoints scholarship.applicationProcess)}}
+            <li>
+                {{#if (containsSubPoints this)}}
+                    {{splitMainPoint this}}
+                    <ul class="sub-point-list">
+                        {{#each (splitSubPoints this) as |subPoint|}}
+                            <li>{{subPoint}}</li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    {{this}}
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+    {{#if hasApplied}}
+        <p class="application-message">You have already submitted an application for this scholarship.</p>
+    {{else if canReapply}}
+        {{#if (isOwnScholarship scholarship.scholarshipID)}}
+            <button class="apply-button" onclick="window.location.href='/apply-scholarship/{{scholarship.scholarshipID}}'">Reapply Now</button>
+        {{else}}
+            <button class="apply-button" onclick="window.location.href='https://www.google.com'">Reapply Now</button>
+        {{/if}}
+        <p class="application-message">Your previous application was rejected. You can reapply.</p>
+    {{else}}
+        {{#if (isOwnScholarship scholarship.scholarshipID)}}
+            <button class="apply-button" onclick="window.location.href='/apply-scholarship/{{scholarship.scholarshipID}}'">Apply Now</button>
+        {{else}}
+            <button class="apply-button" onclick="window.location.href='https://www.google.com'">Apply Now</button>
+        {{/if}}
+    {{/if}}
+</div>
+
+            <!-- Documents Required -->
+            <div id="documents-required" class="section">
+                <h2>Documents Required</h2>
+                <ul class="point-list">
+                    {{#each (splitPoints scholarship.documentsRequired)}}
+                        <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

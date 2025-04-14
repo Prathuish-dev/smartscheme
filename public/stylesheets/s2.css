@@ -1,0 +1,226 @@
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #e8f7fa, #d8effc);
+    color: #2C3E50;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background: linear-gradient(to right, #2595bd, #3e659b);
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+}
+
+header h1 img.logo {
+    height: 90px; /* Adjust as needed */
+    width: auto;
+    margin-right: 10px;
+}
+
+header nav a {
+    text-decoration: none;
+}
+
+header nav button {
+    background: #2596be;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 8px 26px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 10px; 
+}
+
+header nav button:hover {
+    background: #3db17d;
+}
+
+/* Layout */
+.container {
+    display: flex;
+    align-items: flex-start; /* Align sidebar and content at the top */
+    gap: 0px; /* Remove extra space between sidebar & content */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    margin-top: 2px;
+    margin-left: 3px;
+    border-radius: 8px;
+    background: linear-gradient(to right, #599ecf, #2596be);
+    color: white;
+    padding: 20px;
+    height: 90vh;
+    top: 100px; /* Adjusts sidebar below the header */
+    left: 0;
+}
+
+.user-profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.user-profile p {
+    font-size: 22px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.user-profile span {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.sidebar-nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-nav ul li {
+    padding: 10px;
+}
+
+.sidebar-nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover, 
+.sidebar-nav ul li a.active {
+    background: #3db17d;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1; /* Takes up remaining space */
+    padding: 20px;
+    background: white;
+    margin-left: 10px; 
+    margin-right: 10px;
+    margin-top: 10px; /* Just slightly more than sidebar width */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Scholarships Section */
+.scholarship-box {
+    background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.side1 {
+    background: linear-gradient(to right, #81c0dd, #5aa2d5);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; 
+}
+
+.scholarship-box:hover {
+    transform: translateY(-3px);
+}
+
+.scholarship-box h3 a {
+    text-decoration: none;
+    color: #2596be;
+}
+
+.scholarship-box h3 a:hover {
+    color: #3db17d;
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #3db17d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #3db17d;
+}
+
+/* Apply Button (from scholarship_details.hbs) */
+.apply-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.apply-button:hover {
+    background: #45a049;
+}
+
+.apply-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Version Info */
+.version {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+/* Status indicators */
+.status-pending {
+    color: #FFA500; /* Orange for pending */
+    font-weight: bold;
+}
+
+.status-certified {
+    color: #4CAF50; /* Green for certified */
+    font-weight: bold;
+}
+
+.status-rejected {
+    color: #F44336; /* Red for rejected */
+    font-weight: bold;
+}

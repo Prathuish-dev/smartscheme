@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tester Dashboard - Smart Scheme</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2596be;
+            --primary-dark: #1e7e9e;
+            --danger: #f44336;
+            --success: #4caf50;
+            --light-bg: #f5f7fa;
+            --text: #333;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--light-bg);
+            color: var(--text);
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .application-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-details {
+            margin-bottom: 15px;
+        }
+
+        .card-details p {
+            margin: 5px 0;
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* Enhanced PDF Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 90%;
+            height: 90%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .pdf-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 0; /* Allows proper flexbox sizing */
+        }
+
+        .pdf-viewer {
+            flex: 1;
+            width: 100%;
+            border: none;
+            min-height: 500px;
+        }
+
+        .modal-actions {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .btn-cancel {
+            background: #f0f0f0;
+            color: var(--text);
+        }
+
+        .btn-cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .rejection-section {
+            display: none;
+            padding: 20px;
+            background: #fff8f8;
+            border-top: 1px solid #ffdddd;
+        }
+
+        .rejection-section h4 {
+            margin-top: 0;
+            color: var(--danger);
+        }
+
+        .rejection-section textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ffcccc;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">SMART SCHEME</div>
+            <div class="nav-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='/logout'">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <h2><i class="fas fa-file-alt"></i> Pending Applications</h2>
+            
+            {{#if applications.length}}
+                {{#each applications}}
+                <div class="application-card" data-id="{{this._id}}">
+                    <div class="card-header">
+                        <h3>{{this.applicationNo}} - {{this.scholarshipName}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-details">
+                            <p><strong>User:</strong> {{this.userId}}</p>
+                            <p><strong>Submitted:</strong> {{formatDate this.createdAt}}</p>
+                            {{#if this.assignedTo}}
+                                <p><strong>Assigned To:</strong> {{this.assignedTo}}</p>
+                            {{/if}}
+                        </div>
+                        <div class="card-actions">
+                            <button class="btn btn-primary view-pdf-btn" data-id="{{this._id}}" data-pdf-path="{{this.pdfPath}}">
+                                <i class="fas fa-eye"></i> View PDF
+                            </button>
+                            {{#if this.isAssignedToCurrentTester}}
+                                <button class="btn btn-success certify-btn" data-id="{{this._id}}">
+                                    <i class="fas fa-check-circle"></i> Certify
+                                </button>
+                                <button class="btn btn-danger reject-btn" data-id="{{this._id}}">
+                                    <i class="fas fa-ban"></i> Reject
+                                </button>
+                            {{else if this.isUnassigned}}
+                                <button class="btn btn-primary assign-btn" data-id="{{this._id}}">
+                                    <i class="fas fa-user-plus"></i> Assign to Me
+                                </button>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            {{else}}
+                <div class="empty-state">
+                    <i class="fas fa-folder-open"></i>
+                    <h3>No pending applications</h3>
+                    <p>All applications have been processed</p>
+                </div>
+            {{/if}}
+        </main>
+    </div>
+
+    <!-- PDF Modal -->
+    <div class="modal" id="pdfModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Application Review</div>
+                <div class="modal-close" onclick="closeModal()">&times;</div>
+            </div>
+            <div class="modal-body">
+                <div class="pdf-container">
+                    <iframe id="pdfViewer" class="pdf-viewer"></iframe>
+                </div>
+                <div class="modal-actions" id="modalActions">
+                    <button class="btn btn-cancel" onclick="closeModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-danger" onclick="showRejectionSection()">
+                        <i class="fas fa-ban"></i> Reject
+                    </button>
+                    <button class="btn btn-success" onclick="certifyApplication()">
+                        <i class="fas fa-check-circle"></i> Certify
+                    </button>
+                </div>
+                <div class="rejection-section" id="rejectionSection">
+                    <h4>Reason for Rejection</h4>
+                    <textarea id="rejectionReason" placeholder="Please provide specific reasons for rejecting this application..."></textarea>
+                    <div class="modal-actions">
+                        <button class="btn btn-cancel" onclick="cancelRejection()">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn btn-danger" onclick="submitRejection()">
+                            <i class="fas fa-ban"></i> Confirm Rejection
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentAppId = null;
+        let currentPdfPath = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle all button clicks using event delegation
+            document.addEventListener('click', async function(event) {
+                // Assign button
+                if (event.target.closest('.assign-btn')) {
+                    const button = event.target.closest('.assign-btn');
+                    const appId = button.getAttribute('data-id');
+                    
+                    try {
+                        const response = await fetch(`/assign-application/${appId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            credentials: 'same-origin'
+                        });
+                        
+                        if (!response.ok) {
+                            const error = await response.json();
+                            throw new Error(error.message || 'Assignment failed');
+                        }
+                        window.location.reload();
+                    } catch (error) {
+                        console.error('Assignment error:', error);
+                        alert(error.message || 'Failed to assign application. Please try again.');
+                    }
+                }
+                
+                // View PDF button
+                if (event.target.closest('.view-pdf-btn')) {
+                    const button = event.target.closest('.view-pdf-btn');
+                    const appId = button.getAttribute('data-id');
+                    const pdfPath = button.getAttribute('data-pdf-path');
+                    openModal(appId, pdfPath);
+                }
+                
+                // Certify button (outside modal)
+                if (event.target.closest('.certify-btn')) {
+                    const button = event.target.closest('.certify-btn');
+                    const appId = button.getAttribute('data-id');
+                    await certifyApplication(appId);
+                }
+                
+                // Reject button (outside modal)
+                if (event.target.closest('.reject-btn')) {
+                    const button = event.target.closest('.reject-btn');
+                    const appId = button.getAttribute('data-id');
+                    const reason = prompt('Please enter the reason for rejection:');
+                    if (reason && reason.trim() !== '') {
+                        await rejectApplication(appId, reason);
+                    }
+                }
+            });
+        });
+
+        // Open modal with PDF
+        function openModal(appId, pdfPath) {
+            currentAppId = appId;
+            currentPdfPath = pdfPath;
+            
+            // Normalize path for Windows/Linux compatibility
+            const normalizedPath = pdfPath.replace(/\\/g, '/');
+            const encodedPath = encodeURIComponent(normalizedPath);
+            
+            // Set PDF viewer source
+            const pdfViewer = document.getElementById('pdfViewer');
+            pdfViewer.src = `/view-pdf?path=${encodedPath}`;
+            
+            // Show modal
+            document.getElementById('pdfModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Reset modal state
+            document.getElementById('rejectionSection').style.display = 'none';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('pdfViewer').src = '';
+        }
+
+        // Show rejection section in modal
+        function showRejectionSection() {
+            document.getElementById('rejectionSection').style.display = 'block';
+        }
+
+        // Cancel rejection
+        function cancelRejection() {
+            document.getElementById('rejectionSection').style.display = 'none';
+            document.getElementById('rejectionReason').value = '';
+        }
+
+        // Certify application
+        async function certifyApplication(appId = currentAppId) {
+            if (!appId) return;
+            
+            if (confirm('Are you sure you want to certify this application?')) {
+                try {
+                    const response = await fetch(`/mark-certified/${appId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        credentials: 'same-origin'
+                    });
+                    
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Certification failed');
+                    }
+                    alert('Application certified successfully!');
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Certification error:', error);
+                    alert(error.message || 'Failed to certify application. Please try again.');
+                }
+            }
+        }
+
+        // Reject application
+        async function rejectApplication(appId = currentAppId, reason = null) {
+            if (!appId) return;
+            
+            reason = reason || document.getElementById('rejectionReason').value.trim();
+            if (!reason) {
+                alert('Please enter a rejection reason');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/mark-rejected/${appId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ reason }),
+                    credentials: 'same-origin'
+                });
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Rejection failed');
+                }
+                alert('Application rejected successfully!');
+                window.location.reload();
+            } catch (error) {
+                console.error('Rejection error:', error);
+                alert(error.message || 'Failed to reject application. Please try again.');
+            }
+        }
+
+        // Submit rejection from modal
+        async function submitRejection() {
+            await rejectApplication();
+        }
+
+        // Close modal when clicking outside content
+        document.getElementById('pdfModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modify Scholarship - Smart Scheme</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            color: #333;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            background: #512da8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-actions button:hover {
+            background: #4527a0;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Modify Scholarship: {{scholarship.name}}</h1>
+        <form action="/save-scheme/{{scholarship.scholarshipID}}" method="POST">
+            <!-- Scholarship Details -->
+            <div class="form-group">
+                <label for="name">Scholarship Name</label>
+                <input type="text" id="name" name="scholarship[name]" value="{{scholarship.name}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="course_type">Course Type (Comma-separated)</label>
+                <input type="text" id="course_type" name="scholarship[course_type]" value="{{scholarship.course_type}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category (Comma-separated)</label>
+                <input type="text" id="category" name="scholarship[category]" value="{{scholarship.category}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="domicile">Domicile (Comma-separated)</label>
+                <input type="text" id="domicile" name="scholarship[domicile]" value="{{scholarship.domicile}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="admission_type">Admission Type</label>
+                <input type="text" id="admission_type" name="scholarship[admission_type]" value="{{scholarship.admission_type}}">
+            </div>
+
+            <div class="form-group">
+                <label for="income_limit">Income Limit</label>
+                <input type="number" id="income_limit" name="scholarship[income_limit]" value="{{scholarship.income_limit}}">
+            </div>
+
+            <div class="form-group">
+                <label for="academic_year">Academic Year (Comma-separated)</label>
+                <input type="text" id="academic_year" name="scholarship[academic_year]" value="{{scholarship.academic_year}}">
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender (Comma-separated)</label>
+                <input type="text" id="gender" name="scholarship[gender]" value="{{scholarship.gender}}">
+            </div>
+
+            <div class="form-group">
+                <label for="institute_type">Institute Type (Comma-separated)</label>
+                <input type="text" id="institute_type" name="scholarship[institute_type]" value="{{scholarship.institute_type}}">
+            </div>
+
+            <div class="form-group">
+                <label for="qualification_exam_score">Qualification Exam Score</label>
+                <input type="number" id="qualification_exam_score" name="scholarship[qualification_exam_score]" value="{{scholarship.qualification_exam_score}}">
+            </div>
+
+            <div class="form-group">
+                <label for="deadline">Deadline</label>
+                <input type="date" id="deadline" name="scholarship[deadline]" value="{{scholarship.deadline}}">
+            </div>
+
+            <!-- Scholarship Description -->
+            <div class="form-group">
+                <label for="details">Details</label>
+                <textarea id="details" name="description[details]" required>{{scholarshipDescription.details}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="benefits">Benefits</label>
+                <textarea id="benefits" name="description[benefits]" required>{{scholarshipDescription.benefits}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="eligibility">Eligibility</label>
+                <textarea id="eligibility" name="description[eligibility]" required>{{scholarshipDescription.eligibility}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="applicationProcess">Application Process</label>
+                <textarea id="applicationProcess" name="description[applicationProcess]" required>{{scholarshipDescription.applicationProcess}}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="documentsRequired">Documents Required</label>
+                <textarea id="documentsRequired" name="description[documentsRequired]" required>{{scholarshipDescription.documentsRequired}}</textarea>
+            </div>
+
+            <!-- Save and Cancel Buttons -->
+            <div class="form-actions">
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="window.location.href='/remove-scheme'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

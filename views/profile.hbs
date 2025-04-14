@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/s2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Add new notification styles */
+        .notice-board {
+            margin-top: 20px;
+        }
+
+        .notification-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-card.unread {
+            border-left: 4px solid #2196F3;
+            background-color: #f8f9fa;
+        }
+
+        .notification-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-message {
+            margin: 0;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .notification-date {
+            color: #666;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+
+        .notification-arrow {
+            color: #999;
+            margin-left: 15px;
+        }
+
+       .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Status indicators */
+        .status-pending {
+            color: #FFA500;
+            font-weight: bold;
+            background-color: #FFF3E0;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .status-certified {
+            color: #4CAF50;
+            font-weight: bold;
+            background-color: #E8F5E9;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .status-rejected {
+            color: #F44336;
+            font-weight: bold;
+            background-color: #FFEBEE;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        /* Download button */
+        .download-btn {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .download-btn:hover {
+            background-color: #0b7dda;
+        }
+        
+        /* Rejection reason */
+        .rejection-reason {
+            color: #F44336;
+            font-size: 0.9em;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        /* Scholarship box enhancements */
+        .scholarship-box {
+            transition: all 0.3s ease;
+        }
+        .scholarship-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>
+            <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+            Smart Scheme
+        </h1>
+        <nav>
+            <a href="/logout"><button>Sign Out</button></a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="user-profile">
+                <img src="/images/user-placeholder.png" alt="User Profile">
+                <p>{{user.first_name}} {{user.last_name}} <br><span>{{user.email}}</span></p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul> 
+                    <div class="side1">
+                        <li><a href="/profile-view">Profile</a></li>
+                        <li><a href="#" onclick="showTab('my-scholarships',event)" class="active">My Scholarship</a></li>
+                        <li><a href="#" onclick="showTab('application-status',event)">Application Status</a></li>
+                        <li><a href='/approved-application'>Approved Applications</a></li>
+                        <li><a href="#" onclick="showTab('notice-board',event)">Notifications</a></li>
+                    </div>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- My Scholarships Section -->
+            <section id="my-scholarships" class="tab-content active">
+                <h2>Eligible Scholarships</h2>
+                {{#if scholarships.length}}
+                    <div class="scholarships-list">
+                        {{#each scholarships}}
+                            <div class="scholarship-box">
+                                <h3><a href="/scholarship/details/{{this.scholarshipID}}">{{this.name}}</a></h3>
+                                <p><strong>Income Limit:</strong> {{#if this.income_limit}}₹{{this.income_limit}}{{else}}Not specified{{/if}}</p>
+                                <p><strong>Category:</strong> {{this.category}}</p>
+                                <p><strong>Course Type:</strong> {{this.course_type}}</p>
+                                <p><strong>Deadline:</strong> {{this.deadline}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <p>No scholarships available based on your profile.</p>
+                {{/if}}
+            </section>
+
+            <!-- Application Status Section -->
+            <section id="application-status" class="tab-content">
+                <h2>Application Status</h2>
+                {{#if applications.length}}
+                    <div class="scholarships-list">
+                        {{#each applications}}
+                            <div class="scholarship-box">
+                                <h3>{{this.scholarshipName}}</h3>
+                                <p><strong>Application No:</strong> {{this.applicationNo}}</p>
+                                <p><strong>Status:</strong> 
+                                    <span class="status-{{this.status}}">
+                                        {{#if (isCertified this.status)}}
+                                            Certified
+                                            <a href="/download-pdf/{{this._id}}" class="download-btn">Download</a>
+                                        {{else if (isRejected this.status)}}
+                                            Rejected
+                                        {{else}}
+                                            Pending
+                                        {{/if}}
+                                    </span>
+                                </p>
+                                {{#if (isRejected this.status)}}
+                                    <p class="rejection-reason">
+                                        <strong>Reason:</strong> {{this.rejectionReason}}
+                                    </p>
+                                {{/if}}
+                                <p><strong>Submitted On:</strong> {{formatDate this.createdAt}}</p>
+                                {{#if this.certifiedAt}}
+                                    <p><strong>Certified On:</strong> {{formatDate this.certifiedAt}}</p>
+                                {{/if}}
+                            </div>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <p>You have not applied for any scholarships yet.</p>
+                {{/if}}
+            </section>
+
+            <!-- Notifications Section -->
+            <section id="notice-board" class="tab-content">
+                <h2>Notifications</h2>
+                {{#if notifications.length}}
+                    <div class="notice-board">
+                        {{#each notifications}}
+                            <div class="notification-card {{#unless this.isRead}}unread{{/unless}}" 
+                                 onclick="handleNotificationClick('{{this._id}}', '{{this.scholarshipID}}')">
+                                <div class="notification-content">
+                                    <p class="notification-message">{{this.message}}</p>
+                                    <small class="notification-date">{{formatDate this.timestamp}}</small>
+                                </div>
+                                <i class="fas fa-chevron-right notification-arrow"></i>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <div class="no-notifications">
+                        <i class="fas fa-bell-slash"></i>
+                        <p>No new notifications</p>
+                    </div>
+                {{/if}}
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Function to show the selected tab
+        function showTab(tabId, event) {
+            event.preventDefault();
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show the selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active state in sidebar
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Handle notification clicks
+        async function handleNotificationClick(notificationId, scholarshipID) {
+            try {
+                // Mark as read
+                await fetch(`/notifications/mark-read/${notificationId}`, { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // Navigate to scholarship details
+                window.location.href = `/scholarship/details/${scholarshipID}`;
+            } catch (error) {
+                console.error('Error handling notification click:', error);
+                // Fallback navigation if marking read fails
+                window.location.href = `/scholarship/details/${scholarshipID}`;
+            }
+        }
+    </script>
+</body>
+</html>
