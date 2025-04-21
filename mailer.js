@@ -7,8 +7,8 @@ const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', // Gmail's SMTP server host
     port: 587, // Port for TLS/STARTTLS
     auth: {
-        user: 'souravsaitus180@gmail.com', // Your Gmail address
-        pass: 'ehls ruuf jvzc jfay', // Your Gmail password or app-specific password
+        user: 'your-email', // Your Gmail address
+        pass: 'your-password', // Your Gmail password or app-specific password
     },
 });
 
@@ -17,7 +17,7 @@ const sendEmail = (to, subject, text) => {
     const mailOptions = {
         from:{
                 name: 'Smartscheme',
-                address: 'souravsaitus180@gmail.com'
+                address: 'your-email address'
         },
         to: to, 
         subject: subject, 
